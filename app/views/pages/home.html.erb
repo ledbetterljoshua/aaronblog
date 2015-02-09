@@ -1,0 +1,105 @@
+
+
+<div id="banner" class="homepage_banner" 
+style="visibility: visible; background-image: url('') ">
+	<div class="wrapper">
+		<h1 class="title" style="visibility: visible; ">Aaron <span class="responsive_break">Westbrook</span></h1>
+		<h2 class="sub_title" style="font-size:18px"></h2>
+		<p1 class="sub_title socials" style="visibility: visible; display:block !important;">
+			<% @socials.each do |social| %>
+			<a href="<%= social.facebook %>" class="fb" target="_blank"></a> |
+	        <a href="<%= social.twitter %>" class="tw" target="_blank"></a> |
+	        <a href="<%= social.instagram %>" class="insta" target="_blank">instagram</a>
+	        <% end %>
+   		</p1>
+	</div>
+	<% if user_signed_in? %>
+	<a href="/bannerimages/1/edit" class="changeBanner">Change Banner</a>
+	<% end %>
+</div>
+<span id="theHiddenImg" style="display:none;"><%= image_tag @bannerimages.image.url(:original, timestamp: false) %></span> 
+
+<section class="features-list" id="features">
+	<h1 class="titlers">Check out some of my most recent posts</h1>
+			<div class="container">
+
+				<div class="row">
+					<div class="col-md-12">
+						<% @posts.each do |post| %>
+						<div class="col-md-4 feature-1 wp2 animated fadeInDown">
+							<div class="feature-content">
+								<h1><%= post.title %></h1>
+								<p><%= truncate(" #{post.description} ", :length => 205) %></p>
+								<%= link_to 'Read More', post %>
+							</div>
+						</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</section>
+
+<style>
+.modal-body img {
+max-width: 100%;
+}
+</style>
+
+<section class="screenshots" id="screenshots">
+	<div class="container-fluid">
+		<div class="row">
+			<ul class="grid">
+				<% @photos.each do |photo| %>
+				<li>
+					<figure>
+						<%= image_tag photo.image.url(:original, timestamp: false) %>
+						<figcaption>
+						<div class="caption-content">
+								<i class="fa fa-search"></i><br>
+								<p><a href="" data-toggle="modal" data-target="#myModal<%= photo.id %>"><%= truncate(" #{photo.description} ", :length => 35) %></p></a>
+						</div>
+						<% if user_signed_in? %>
+			            <p><%= link_to "edit", photo, :class => "editPhoto" %></p>
+			            <% end %>
+						</figcaption>
+					</figure>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</section>
+<section class="download" id="download">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center wp4">
+				<h1>Contact Me!</h1>
+				<a href="mailto:aaphotojam@gmail.com?Subject=Hello%20From%20Your%20WebSite" target="_top" class="download-btn">Send Me An Email <i class="fa fa-download"></i></a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<% @photos.each do |photo| %>
+<div class="modal fade" id="myModal<%= photo.id %>"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= truncate(" #{photo.description} ", :length => 35) %></h4>
+      </div>
+      <div class="modal-body">
+        <%= image_tag photo.image.url(:original, timestamp: false) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<script>
+
+bannerImg();
+</script>

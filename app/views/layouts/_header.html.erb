@@ -1,0 +1,30 @@
+
+
+<div class="row nav-wrapper navbar">
+  <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+    <%= link_to "Aaron" "Westbrook", root_path, :class => "navbar-brand" %>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6 text-right navicon">
+    <p></p><a id="trigger-overlay" class="nav_slide_button nav-toggle" href="#"><span></span></a>
+  </div>
+</div>
+
+<div id="right-menu displayAll">
+  <ul class="ulMenu">
+    <% if user_signed_in? %>
+      <li><%= link_to "New Post", new_post_path %></li>
+      <li><%= link_to "New Photo", new_photo_path %></li>
+    <% end %> 
+    <li><%= link_to "Blog", blog_path %></li>
+    <li><%= link_to "Photos", photos_path %></li>
+    <li><%= link_to "About", about_path %></li>
+    <% if user_signed_in? %>
+      <li><%= link_to "Account Settings", edit_user_registration_path %></li>
+      <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to "Sign in", new_user_session_path %></li>
+    <% end %> 
+  </ul>
+</div>
+
+        
