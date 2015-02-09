@@ -4,6 +4,7 @@
       <ul class="grid">
         <% @photos.each do |photo| %>
         <li>
+          <a href="" data-toggle="modal" data-target="#myModal<%= photo.id %>">
           <figure>
             <%= image_tag photo.image.url(:original, timestamp: false) %>
             <figcaption>
@@ -12,14 +13,34 @@
                 <p><%= truncate(" #{photo.description} ", :length => 35) %></p>
             </div>
             <% if user_signed_in? %>
-            <p><%= link_to "edit", edit_photo_path(photo), :class => "editPhoto" %></p>
-            <% end %>
+                  <p><%= link_to "edit", photo, :class => "editPhoto" %></p>
+                  <% end %>
             </figcaption>
-            
           </figure>
+          </a>
         </li>
         <% end %>
       </ul>
     </div>
   </div>
 </section>
+
+
+<% @photos.each do |photo| %>
+<div class="modal fade" id="myModal<%= photo.id %>"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= truncate(" #{photo.description} ", :length => 35) %></h4>
+      </div>
+      <div class="modal-body">
+        <%= image_tag photo.image.url(:original, timestamp: false) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

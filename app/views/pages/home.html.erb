@@ -51,18 +51,20 @@ max-width: 100%;
 			<ul class="grid">
 				<% @photos.each do |photo| %>
 				<li>
+					<a href="" data-toggle="modal" data-target="#myModal<%= photo.id %>">
 					<figure>
 						<%= image_tag photo.image.url(:original, timestamp: false) %>
 						<figcaption>
 						<div class="caption-content">
 								<i class="fa fa-search"></i><br>
-								<p><a href="" data-toggle="modal" data-target="#myModal<%= photo.id %>"><%= truncate(" #{photo.description} ", :length => 35) %></p></a>
+								<p><%= truncate(" #{photo.description} ", :length => 35) %></p>
 						</div>
 						<% if user_signed_in? %>
 			            <p><%= link_to "edit", photo, :class => "editPhoto" %></p>
 			            <% end %>
 						</figcaption>
 					</figure>
+					</a>
 				</li>
 				<% end %>
 			</ul>
